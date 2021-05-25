@@ -17,56 +17,56 @@ This function will create and insert/append the elements needed to display a "pa
 */
 
 function showPage (list, page){
-   let startIndex = (page * 9)-9;
-   let endIndex = (page*9);
-   let ul = document.getElementsByClassName("student-list");
-   let studentList = ul[0];
+   const startIndex = (page * 9)-9;
+   const endIndex = (page*9);
+   const ul = document.getElementsByClassName("student-list");
+   const studentList = ul[0];
    studentList.innerHTML= "";
    for(let i =0; i<list.length; i++){
       if([i]>= startIndex && [i] < endIndex){
-         let li = document.createElement('li')
-         li.className = "student-item cf"
+         const li = document.createElement('li');
+         li.className = "student-item cf";
 
-         let firstDiv = document.createElement('div')
-         firstDiv.className = "student-details"
-         li.appendChild(firstDiv)
+         const firstDiv = document.createElement('div');
+         firstDiv.className = "student-details";
+         li.appendChild(firstDiv);
 
       
 
-         let image = document.createElement('img')
-         image.className = "avatar"
-         image.src = list[i].picture["large"]
-         firstDiv.appendChild(image)
+         const image = document.createElement('img');
+         image.className = "avatar";
+         image.src = list[i].picture["large"];
+         firstDiv.appendChild(image);
 
-         let h3= document.createElement('h3')
-         h3.textContent = list[i].name["first"]+ " " + list[i].name["last"]
-         firstDiv.appendChild(h3)
+         const h3= document.createElement('h3');
+         h3.textContent = list[i].name["first"]+ " " + list[i].name["last"];
+         firstDiv.appendChild(h3);
 
-         let span = document.createElement('span');
-         span.className = "email"
-         span.textContent= list[i].email
-         firstDiv.appendChild(span)
+         const span = document.createElement('span');
+         span.className = "email";
+         span.textContent= list[i].email;
+         firstDiv.appendChild(span);
 
-         let secondDiv = document.createElement('div');
-         secondDiv.className = "joined-details"
-         li.appendChild(secondDiv)
+         const secondDiv = document.createElement('div');
+         secondDiv.className = "joined-details";
+         li.appendChild(secondDiv);
 
-         let secondSpan = document.createElement('span');
-         secondSpan.className = "date"
-         secondSpan.textContent="Joined" + " " + list[i].registered["date"]
-         secondDiv.appendChild(secondSpan)
+         const secondSpan = document.createElement('span');
+         secondSpan.className = "date";
+         secondSpan.textContent="Joined" + " " + list[i].registered["date"];
+         secondDiv.appendChild(secondSpan);
 
 
          studentList.appendChild(li)
       
 
 
-      }
-   }
+      };
+   };
    return studentList
 };
 
-showPage(data,1)
+
 
 
 
@@ -74,6 +74,43 @@ showPage(data,1)
 Create the `addPagination` function
 This function will create and insert/append the elements needed for the pagination buttons
 */
+
+function addPagination(list){
+   const numbOfPages = Math.ceil(list.length/9)
+   const ul = document.getElementsByClassName("link-list")
+   const linkList = ul[0]
+   linkList.innerHTML = ""
+
+   for(let i = 1; i<=numbOfPages; i++){
+      const secondLi = document.createElement('li')
+      const btn = document.createElement('button')
+      btn.type = "button"
+      btn.textContent= [i]
+
+      secondLi.appendChild(btn)
+      linkList.appendChild(secondLi)
+
+      const firstButton = document.querySelector('button')
+      firstButton.className = "active"
+
+
+
+   }
+
+   linkList.addEventListener('click', (e) => {
+      if(e.target.tagName === 'BUTTON'){
+         activeBtn = document.querySelector(".active")
+         activeBtn.className="";
+         e.target.className = "active";
+         showPage(list,e.target.textContent)
+      }
+   })
+   return linkList
+   }
+   showPage(data,1)
+   addPagination(data)
+
+ 
 
 
 
